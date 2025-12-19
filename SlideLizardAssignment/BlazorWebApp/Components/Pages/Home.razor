@@ -1,8 +1,42 @@
 ﻿@page "/"
+@using BlazorWebApp.Components.Services
+@using Core
 
-<h3>Home Page</h3>
+<div class="main-container">
+    <h3>Home Page</h3>
+
+    <table class="presentations-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>@foreach (var presentation in Presentations)
+               {
+                   <tr>
+                       <td>@presentation.Name</td>
+                       <td>@presentation.FromDate.ToString("F")</td>
+                       <td>@presentation.ToDate.ToString("F")</td>
+                       <td>@presentation.Location</td>
+                   </tr>
+               }
+        </tbody>
+
+    </table>
+</div>
 
 @code
 {
-     
+    [Inject] public required IPresentationService PresentationService { get; set; }
+
+    private IEnumerable<Presentation> Presentations { get; set; } = Enumerable.Empty<Presentation>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Presentations = await PresentationService.GetAllPresentationsAsync() ?? Enumerable.Empty<Presentation>();
+    }
+    
 }

@@ -1,0 +1,35 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.presentations-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.presentations-table thead tr {
+    background-color: #0087ff;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.presentations-table th,
+.presentations-table td {
+    padding: 0.75rem;
+}
+
+.presentations-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.presentations-table tbody tr:hover {
+    background-color: #e6f2ff;
+    color: #0087ff;
+}

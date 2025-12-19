@@ -1,4 +1,5 @@
 using BlazorWebApp.Components;
+using BlazorWebApp.Components.Services;
 
 namespace BlazorWebApp;
 
@@ -11,6 +12,11 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
+
+        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5105") });
+
+        builder.Services.AddScoped<IPresentationService, PresentationService>();
+
 
         var app = builder.Build();
 
