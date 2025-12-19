@@ -1,6 +1,20 @@
 @WebApi_HostAddress = http://localhost:5105
 
-GET {{WebApi_HostAddress}}/weatherforecast/
+
+### GET all presentations
+GET {{WebApi_HostAddress}}/api/presentation/
 Accept: application/json
 
-###
+### GET count of presentations in specified time stamp
+GET {{WebApi_HostAddress}}/api/presentation/statistic?fromdate=2024-10-19T09:21:27&todate=2024-12-19T09:21:27
+
+### ADD new presentation
+POST {{WebApi_HostAddress}}/api/presentation/
+Content-Type: application/json
+
+{
+    "name": "New Presentation",
+    "fromdate": "2024-11-01T10:00:00",
+    "todate": "2024-11-03T11:00:00",
+    "location": "Conference Room A"
+}

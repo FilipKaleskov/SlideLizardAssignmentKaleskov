@@ -18,21 +18,18 @@ app.UseHttpsRedirection();
 
 PresentationRepository repository = new PresentationRepository();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
 var presentations = repository.GetAllPresentations();
 
 app.MapGet("/api/presentation", () => presentations).WithName("GetPresentation");
 
-app.MapGet("/api/presentation/statistic", (DateTime fromdate, DateTime todate) => 
+app.MapGet("/api/presentation/statistic", (DateTime fromdate, DateTime todate) =>
     repository.GetPresentationsInTimeStamp(fromdate, todate)).WithName("GetPresentationsInTimeStamp");
 
-app.Run();
+app.MapPost("/api/presentation", (Presentation presentation) =>
+    {
+        repository.AddPresentation(presentation);
+        return Results.Created($"/api/presentation/{presentation.Name}", presentation);
+    })
+    .WithName("AddPresentation");
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+app.Run();
