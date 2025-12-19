@@ -12,7 +12,7 @@ public class PresentationRepository
         {
             throw new InvalidOperationException($"Presentation '{presentation.Name}' already exists.");
         }
-        
+
         presentations.Add(presentation);
     }
 

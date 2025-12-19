@@ -1,14 +1,14 @@
 @page "/CreatePresentation"
 @using BlazorWebApp.Components.Services
 @using Core
-@rendermode InteractiveServer  
+@rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 
 <div class="main-container">
     <h3>Create Presentation</h3>
-    
+
     <form class="create-presentation-form" @onsubmit="Submit">
-        
+
         @if (!string.IsNullOrEmpty(errorMessage))
         {
             <div class="error-msg" style="color: red; margin-bottom: 1rem;">@errorMessage</div>
@@ -16,13 +16,13 @@
 
         <div>
             <label for="name">Name:</label>
-            <input type="text" 
-                   @bind-value="name" 
-                   @bind-value:event="oninput" 
-                   id="name" 
+            <input type="text"
+                   @bind-value="name"
+                   @bind-value:event="oninput"
+                   id="name"
                    placeholder="Enter name"
-                   class="@(IsNameEmpty ? "invalid" : "")" />
-            
+                   class="@(IsNameEmpty ? "invalid" : "")"/>
+
             @if (IsNameEmpty)
             {
                 <div class="validation-error">Name is required.</div>
@@ -33,15 +33,15 @@
             <label for="fromDate">From Date:</label>
             <input type="datetime-local" @bind-value="fromdate" id="fromDate" required/>
         </div>
-        
+
         <div>
             <label for="toDate">To Date:</label>
-            <input type="datetime-local" 
-                   @bind-value="todate" 
-                   id="toDate" 
+            <input type="datetime-local"
+                   @bind-value="todate"
+                   id="toDate"
                    required
-                   class="@(IsDateInvalid ? "invalid" : "")" />
-            
+                   class="@(IsDateInvalid ? "invalid" : "")"/>
+
             @if (IsDateInvalid)
             {
                 <div class="validation-error">The 'To Date' must be later than the 'From Date'.</div>
@@ -50,13 +50,13 @@
 
         <div>
             <label for="location">Location:</label>
-            <input type="text" 
-                   @bind-value="location" 
-                   @bind-value:event="oninput" 
-                   id="location" 
+            <input type="text"
+                   @bind-value="location"
+                   @bind-value:event="oninput"
+                   id="location"
                    placeholder="Enter Location"
-                   class="@(IsLocationEmpty ? "invalid" : "")" />
-            
+                   class="@(IsLocationEmpty ? "invalid" : "")"/>
+
             @if (IsLocationEmpty)
             {
                 <div class="validation-error">Location is required.</div>
@@ -72,24 +72,23 @@
 
 @code {
     [Inject] public required IPresentationService PresentationService { get; set; }
-    
+
     private string name = string.Empty;
     private string location = string.Empty;
-    private DateTime fromdate = DateTime.Now; 
-    private DateTime todate = DateTime.Now.AddHours(1); 
+    private DateTime fromdate = DateTime.Now;
+    private DateTime todate = DateTime.Now.AddHours(1);
     private string? errorMessage;
-    
+
     private bool IsNameEmpty => string.IsNullOrWhiteSpace(name);
     private bool IsLocationEmpty => string.IsNullOrWhiteSpace(location);
     private bool IsDateInvalid => todate <= fromdate;
 
     private bool IsFormValid => !IsNameEmpty && !IsLocationEmpty && !IsDateInvalid;
 
-
     private async Task Submit()
     {
         errorMessage = null;
-        try 
+        try
         {
             await PresentationService.PostPresentationAsync(new Presentation
             {
@@ -98,12 +97,13 @@
                 ToDate = todate,
                 Location = location
             });
-            
+
             NavigationManager.NavigateTo("/");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             errorMessage = ex.Message;
         }
     }
+
 }

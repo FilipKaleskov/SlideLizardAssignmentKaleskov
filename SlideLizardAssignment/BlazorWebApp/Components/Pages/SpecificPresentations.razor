@@ -1,10 +1,67 @@
 @page "/SpecificPresentations"
+@using BlazorWebApp.Components.Services
+@rendermode InteractiveServer
 
 <div class="main-container">
-    <h3>SpecificPresentations</h3>
+    <h3>Specific Presentations Statistic</h3>
+    
+    <form class="create-presentation-form" @onsubmit="Submit">
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="error-msg" style="color: red; margin-bottom: 1rem;">@errorMessage</div>
+        }
+        
+        <div>
+            <label for="fromDate">From Date:</label>
+            <input type="datetime-local" @bind-value="fromdate" id="fromDate" required/>
+        </div>
+        
+        <div>
+            <label for="toDate">To Date:</label>
+            <input type="datetime-local" 
+                   @bind-value="todate" 
+                   id="toDate" 
+                   required
+                   class="@(IsDateInvalid ? "invalid" : "")" />
+            
+            @if (IsDateInvalid)
+            {
+                <div class="validation-error">The 'To Date' must be later than the 'From Date'.</div>
+            }
+        </div>
+        
+        <button type="submit" disabled="@(!IsFormValid)">
+            Calculate Count
+        </button>
+    </form>
+    
+    <div>
+        Number of presentations: @count
+    </div>
 </div>
 
 @code 
 {
+    [Inject] public required IPresentationService PresentationService { get; set; }
+
+    private int count = 0;
+    private DateTime fromdate = DateTime.Now; 
+    private DateTime todate = DateTime.Now.AddHours(1); 
+    private string? errorMessage;
+ 
+    private bool IsDateInvalid => todate <= fromdate;
+    private bool IsFormValid => !IsDateInvalid;
     
+    private async Task Submit()
+    {
+        errorMessage = null;
+        try
+        {
+            count = await PresentationService.GetPresentationCountAsync(fromdate, todate);
+        }
+        catch(Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
 }

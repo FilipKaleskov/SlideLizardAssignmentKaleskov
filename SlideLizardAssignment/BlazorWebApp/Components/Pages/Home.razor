@@ -15,14 +15,14 @@
         </tr>
         </thead>
         <tbody>@foreach (var presentation in Presentations)
-               {
-                   <tr>
-                       <td>@presentation.Name</td>
-                       <td>@presentation.FromDate.ToString("F")</td>
-                       <td>@presentation.ToDate.ToString("F")</td>
-                       <td>@presentation.Location</td>
-                   </tr>
-               }
+        {
+            <tr>
+                <td>@presentation.Name</td>
+                <td>@presentation.FromDate.ToString("F")</td>
+                <td>@presentation.ToDate.ToString("F")</td>
+                <td>@presentation.Location</td>
+            </tr>
+        }
         </tbody>
 
     </table>
@@ -38,5 +38,5 @@
     {
         Presentations = await PresentationService.GetAllPresentationsAsync() ?? Enumerable.Empty<Presentation>();
     }
-    
+
 }
