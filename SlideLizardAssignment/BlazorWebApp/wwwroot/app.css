@@ -39,6 +39,8 @@ h1:focus {
 
 html, body {
     font-family: 'Segoe UI', sans-serif;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 .main-container {

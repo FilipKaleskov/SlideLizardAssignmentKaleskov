@@ -1,0 +1,68 @@
+.create-presentation-form {
+    width: 40%; 
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+.create-presentation-form div {
+    margin-bottom: 1.5rem;
+}
+
+.create-presentation-form label {
+    display: block; 
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.create-presentation-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    box-sizing: border-box; 
+}
+
+.create-presentation-form input:focus {
+    border-color: #0087ff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 135, 255, 0.15);
+}
+
+.create-presentation-form button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #0087ff;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.create-presentation-form button:hover {
+    background-color: #006bce;
+}
+
+.error-msg {
+    color: red; 
+    margin-bottom: 0.75rem;
+}
+
+.validation-error {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    color: #666665;
+    cursor: not-allowed;
+    border: 1px solid #999999;
+}
+
+input.invalid {
+    border-color: #dc3545;
+    background-color: #fff8f8;
+}

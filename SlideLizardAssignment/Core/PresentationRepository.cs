@@ -6,9 +6,11 @@ public class PresentationRepository
 
     public void AddPresentation(Presentation presentation)
     {
-        if (presentations.Contains(presentation))
+        bool alreadyExists = presentations.Any(p => p.Name == presentation.Name);
+
+        if (alreadyExists)
         {
-            throw new InvalidOperationException("Presentation already exists.");
+            throw new InvalidOperationException($"Presentation '{presentation.Name}' already exists.");
         }
         
         presentations.Add(presentation);

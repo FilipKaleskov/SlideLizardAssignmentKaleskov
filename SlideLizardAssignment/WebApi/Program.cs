@@ -18,15 +18,50 @@ app.UseHttpsRedirection();
 
 PresentationRepository repository = new PresentationRepository();
 
-app.MapGet("/api/presentation", () => repository.GetAllPresentations()).WithName("GetPresentation");
+app.MapGet("/api/presentation", () =>
+{
+    IReadOnlyCollection<Presentation> presentations;
+
+    try
+    {
+        presentations = repository.GetAllPresentations();
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.Conflict(ex.Message);
+    }
+
+    return Results.Ok(presentations);
+}).WithName("GetPresentation");
 
 app.MapGet("/api/presentation/statistic", (DateTime fromdate, DateTime todate) =>
-    repository.GetPresentationsInTimeStamp(fromdate, todate)).WithName("GetPresentationsInTimeStamp");
+    {
+        int count = 0;
+
+        try
+        {
+            count = repository.GetPresentationsInTimeStamp(fromdate, todate);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Results.Conflict(ex.Message);
+        }
+
+        return Results.Ok(count);
+    })
+    .WithName("GetPresentationsInTimeStamp");
 
 app.MapPost("/api/presentation", (Presentation presentation) =>
     {
-        repository.AddPresentation(presentation);
-        return Results.Created($"/api/presentation/{presentation.Name}", presentation);
+        try
+        {
+            repository.AddPresentation(presentation);
+            return Results.Created($"/api/presentation/{presentation.Name}", presentation);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Results.Conflict(ex.Message);
+        }
     })
     .WithName("AddPresentation");
 
