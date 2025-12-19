@@ -19,8 +19,8 @@ public class PresentationRepository
         return presentations;
     }
 
-    public int GetPresentationsInTimeStamp(DateTime date)
+    public int GetPresentationsInTimeStamp(DateTime fromDate, DateTime toDate)
     {
-        return presentations.Count(p => p.FromDate <= date && p.ToDate >= date);
+        return presentations.Count(p => p.FromDate >= fromDate && p.ToDate <= toDate);
     }
 }

@@ -27,7 +27,8 @@ var presentations = repository.GetAllPresentations();
 
 app.MapGet("/api/presentation", () => presentations).WithName("GetPresentation");
 
-
+app.MapGet("/api/presentation/statistic", (DateTime fromdate, DateTime todate) => 
+    repository.GetPresentationsInTimeStamp(fromdate, todate)).WithName("GetPresentationsInTimeStamp");
 
 app.Run();
 
