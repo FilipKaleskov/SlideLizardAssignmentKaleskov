@@ -1,0 +1,16 @@
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbar-button {
+    margin: 0.3rem;
+    background-color: #0087ff;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}

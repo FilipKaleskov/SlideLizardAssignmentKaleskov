@@ -1,0 +1,15 @@
+@page "/Navbar"
+@rendermode InteractiveServer  
+@inject NavigationManager NavigationManager
+
+<div class="navbar-container">
+    <h2>SlideLizard Presentations</h2>
+    <button class="navbar-button" @onclick="@(()=>NavigationManager.NavigateTo("/"))">Homepage</button>
+    <button class="navbar-button" @onclick="@(()=>NavigationManager.NavigateTo("/CreatePresentation"))">Create Presentation</button>
+    <button class="navbar-button" @onclick="@(()=>NavigationManager.NavigateTo("/SpecificPresentations"))">Specific Presentations</button>
+</div>
+
+@code 
+{
+    
+}
